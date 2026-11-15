@@ -11,6 +11,8 @@ AIGC:
 
 # android-build-agent
 
+![CI](https://github.com/Tommyface/android-build-agent/actions/workflows/ci.yml/badge.svg)
+
 把 Android 构建能力做成**可被 AI Agent 调用**的工程：一套 Python 实现，两个入口。
 
 | 入口 | 给谁用 | 形态 |
@@ -181,3 +183,14 @@ AGP ↔ Gradle：脚本会从 `build.gradle` / `libs.versions.toml` 读 AGP 版�
 - 首次安装工具链需要下载约 1.1 GB（JDK 320 MB + Gradle 130 MB + SDK 约 600 MB），失败会自动换镜像重试。
 - MCP 走 stdio，没有网络端口；需要远程调用时请套 SSH 或自建 HTTP 网关。
 *（内容由AI生成，仅供参考）*
+
+## 十、测试与 CI
+
+```bash
+python tests/test_config.py     # 14 个单测：任务白名单、profile 解析、路径派生、注入拦截
+python tests/smoke_mcp.py       # 起真实 stdio 进程跑 MCP 握手 + 工具调用 + 安全拦截
+```
+
+CI（`.github/workflows/ci.yml`）在 push / PR 时跑：Python 3.9 与 3.12 双版本 → 语法检查 → 单测 → MCP 冒烟 → CLI 冒烟 → 注入型 task 回归。
+
+新增工具时，记得同步更新 `tests/smoke_mcp.py` 里的工具名断言，否则 CI 会红。
