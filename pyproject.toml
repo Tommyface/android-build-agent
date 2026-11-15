@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "android-build-agent"
-version = "1.0.1"
+version = "1.0.2"
 description = "把 Android 构建能力以 MCP / CLI 形式暴露给 AI Agent"
 readme = "README.md"
 requires-python = ">=3.9"
