@@ -191,6 +191,6 @@ python tests/test_config.py     # 14 个单测：任务白名单、profile 解�
 python tests/smoke_mcp.py       # 起真实 stdio 进程跑 MCP 握手 + 工具调用 + 安全拦截
 ```
 
-CI（`.github/workflows/ci.yml`）在 push / PR 时跑：Python 3.9 与 3.12 双版本 → 语法检查 → 单测 → MCP 冒烟 → CLI 冒烟 → 注入型 task 回归。
+CI（`.github/workflows/ci.yml`）在 push / PR 时跑：Python 3.10 与 3.12 双版本（代码本身兼容 3.9） → 语法检查 → 单测 → MCP 冒烟 → CLI 冒烟 → 注入型 task 回归。
 
 新增工具时，记得同步更新 `tests/smoke_mcp.py` 里的工具名断言，否则 CI 会红。
