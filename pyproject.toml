@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "android-build-agent"
+version = "1.0.0"
+description = "把 Android 构建能力以 MCP / CLI 形式暴露给 AI Agent"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Tommyface" }]
+keywords = ["android", "gradle", "mcp", "agent", "build"]
+dependencies = []
+
+[project.scripts]
+android-build-agent = "android_build_agent.cli:main"
+android-build-agent-mcp = "android_build_agent.mcp_server:main"
+
+[tool.setuptools]
+packages = ["android_build_agent"]

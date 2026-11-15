@@ -1,0 +1,38 @@
+{
+  "defaults": {
+    "sdkPlatforms": ["android-33"],
+    "buildTools": ["33.0.2"],
+    "gradleVersion": "7.6.3",
+    "task": "assembleDebug"
+  },
+  "projects": {
+    "shiye": {
+      "repo": "https://github.com/Tommyface/shiye-android.git",
+      "branch": "main",
+      "sdkPlatforms": ["android-33"],
+      "buildTools": ["33.0.2"],
+      "gradleVersion": "7.6.3",
+      "task": "assembleDebug",
+      "说明": "拾页阅读器：AGP 7.x，JDK17 + Gradle 7.6.3 足够"
+    },
+    "example-agp8": {
+      "repo": "https://github.com/你的账号/你的项目.git",
+      "branch": "main",
+      "sdkPlatforms": ["android-34"],
+      "buildTools": ["34.0.0"],
+      "gradleVersion": "8.7",
+      "task": "assembleDebug",
+      "说明": "AGP 8.x 项目模板：四行改完即可用"
+    },
+    "example-multimodule": {
+      "repo": "https://github.com/你的账号/多模块项目.git",
+      "branch": "develop",
+      "sdkPlatforms": ["android-35"],
+      "buildTools": ["35.0.0"],
+      "extraSdkPackages": ["ndk;26.1.10909125", "cmake;3.22.1"],
+      "gradleVersion": "8.7",
+      "task": ":app:assembleDebug",
+      "说明": "多模块 + NDK 模板：task 指到具体模块，extraSdkPackages 装 NDK/CMake"
+    }
+  }
+}
