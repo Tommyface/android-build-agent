@@ -54,7 +54,10 @@ android-build-agent/
 ## 二、安装
 
 ```bash
-# Python 3.9+，无第三方依赖
+# 从 PyPI（发布后可用）
+pip install android-build-agent
+
+# 从源码（开发用）
 pip install -e .
 
 # 或者不装，直接跑
@@ -194,3 +197,45 @@ python tests/smoke_mcp.py       # 起真实 stdio 进程跑 MCP 握手 + 工具�
 CI（`.github/workflows/ci.yml`）在 push / PR 时跑：Python 3.10 与 3.12 双版本（代码本身兼容 3.9） → 语法检查 → 单测 → MCP 冒烟 → CLI 冒烟 → 注入型 task 回归。
 
 新增工具时，记得同步更新 `tests/smoke_mcp.py` 里的工具名断言，否则 CI 会红。
+
+## 十一、发布到 PyPI
+
+`.github/workflows/publish.yml` 已配好，采用 **Trusted Publishing（OIDC）**，不需要在仓库里存 API Token。
+
+### 首次配置（PyPI 侧三步）
+
+1. 在 https://pypi.org/manage/account/publishing/ 添加 pending publisher：
+   - PyPI Project Name：`android-build-agent`
+   - Owner：`Tommyface`
+   - Repository name：`android-build-agent`
+   - Workflow name：`publish.yml`
+   - Environment name：`pypi`
+2. 在 GitHub 仓库 Settings → Secrets and variables → Actions → **Variables** 加一个：
+   - `PYPI_ENABLED` = `true`（不设则 publish 任务跳过，只构建不发布）
+3. 打个 tag 触发：
+
+```bash
+git tag v1.0.1 && git push origin v1.0.1
+```
+
+流水线会先构建 sdist + wheel（并把 wheel 内的文件清单打印出来），再用 `pypa/gh-action-pypi-publish` 发布。发布成功后：
+
+```bash
+pip install android-build-agent
+```
+
+### 本地验证打包（可选，需要 pip）
+
+```bash
+pip install build
+python -m build          # 产出 dist/android_build_agent-1.0.1-py3-none-any.whl 与 .tar.gz
+python -m zipfile -l dist/android_build_agent-1.0.1-py3-none-any.whl
+```
+
+### 版本号怎么改
+
+两处必须同步：
+- `pyproject.toml` 的 `version`
+- `android_build_agent/__init__.py` 的 `__version__`
+
+`mcp_server.py` 的 `serverInfo.version` 直接读 `__version__`，不用另改。
