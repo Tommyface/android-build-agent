@@ -191,6 +191,7 @@ AGP ↔ Gradle：脚本会从 `build.gradle` / `libs.versions.toml` 读 AGP 版�
 
 ```bash
 python tests/test_config.py     # 14 个单测：任务白名单、profile 解析、路径派生、注入拦截
+python tests/test_metadata.py   # 包元数据：__init__.py 非空、两处版本号一致、入口点可达
 python tests/smoke_mcp.py       # 起真实 stdio 进程跑 MCP 握手 + 工具调用 + 安全拦截
 ```
 

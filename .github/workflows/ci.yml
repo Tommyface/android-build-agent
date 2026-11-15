@@ -34,6 +34,9 @@ jobs:
       - name: 单元测试（配置 / 白名单 / 工具函数）
         run: python tests/test_config.py
 
+      - name: 包元数据一致性（版本号两处对齐、__init__.py 非空）
+        run: python tests/test_metadata.py
+
       - name: MCP 冒烟测试（真实 stdio 握手）
         run: python tests/smoke_mcp.py
 

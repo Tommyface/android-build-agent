@@ -33,6 +33,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install build
 
+      - name: 包元数据一致性（版本号两处对齐、__init__.py 非空）
+        run: python tests/test_metadata.py
+
       - name: 构建
         run: python -m build
 
